@@ -1,6 +1,8 @@
 import React, { useEffect } from "react"
 import { JobsApiCaller } from "requests/jobs"
-import logo from "./logo.svg"
+import { ThemeProvider } from "theming"
+import { Box, Text } from "welcome-ui"
+import { theme } from "./theme"
 import "./App.css"
 
 function App() {
@@ -8,22 +10,13 @@ function App() {
     JobsApiCaller.getJobsByOrganizationReference("Pg4eV6k").then(console.log)
   }, [])
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Box justifyContent="center" display="flex" backgroundColor="lightGrey">
+        <Box>
+          <Text variant="h2">Our offers</Text>
+        </Box>
+      </Box>
+    </ThemeProvider>
   )
 }
 
