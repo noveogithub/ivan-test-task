@@ -10,6 +10,7 @@ import {
 import { JobsApiCaller } from "requests/jobs"
 import { withCache } from "services/cache"
 import { normalizeArray } from "helpers/data"
+import { prepareJobs } from "transformers"
 
 const requestJobsByOrganization = withCache(
   JobsApiCaller.getJobsByOrganizationReference,
@@ -19,8 +20,9 @@ const requestJobsByOrganization = withCache(
 function* requestJobsWorker({ organization = "" }) {
   try {
     const { data } = yield call(requestJobsByOrganization, organization)
+    const preparedJobs = prepareJobs(data.jobs)
     const jobsData = {
-      ...normalizeArray(data.jobs),
+      ...normalizeArray(preparedJobs),
       organization
     }
     yield put(requestJobsSuccess(jobsData))
