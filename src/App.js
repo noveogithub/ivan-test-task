@@ -1,8 +1,12 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react"
+import { JobsApiCaller } from "services/jobs"
+import logo from "./logo.svg"
+import "./App.css"
 
 function App() {
+  useEffect(() => {
+    JobsApiCaller.getJobsByOrganizationReference("Pg4eV6k").then(console.log)
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
@@ -20,7 +24,7 @@ function App() {
         </a>
       </header>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
