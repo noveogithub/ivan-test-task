@@ -17,3 +17,9 @@ export const requestJobsError = error => ({
   type: REQUEST_JOBS_ERROR,
   error
 })
+
+export const REQUEST_JOBS_IF_NEED = `${PREFIX}/REQUEST_JOBS_IF_NEED`
+export const requestJobsIfNeed = ({ organizationRef }) => ({
+  type: REQUEST_JOBS_IF_NEED,
+  organizationRef
+})

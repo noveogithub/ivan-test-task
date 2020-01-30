@@ -7,7 +7,10 @@ import { createReducer } from "reducers/createReducer"
 import { REQUEST_JOBS, REQUEST_JOBS_SUCCESS } from "actions/jobs"
 
 const initialState = {
-  data: [],
+  data: {
+    jobs: [],
+    organization: ""
+  },
   error: {},
   status: STATUS_NOT_REQUESTED
 }
