@@ -1,30 +1,22 @@
-import React, { useEffect } from "react"
+import React from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import { useDispatch } from "react-redux"
-import { requestJobs } from "actions/jobs"
 import { JOB_PREVIEW_ROUTE, JOBS_ROUTE } from "constants/routes"
-import { TEST_ORGANIZATION_REF } from "constants/jobs"
-import { ThemeProvider } from "theming"
+import { Jobs } from "containers/pages/Jobs"
+import { ThemeProvider } from "@xstyled/styled-components"
+import { createTheme } from "@welcome-ui/core"
 import { Box, Text } from "welcome-ui"
-import { theme } from "./theme"
+
+const theme = createTheme({})
 
 function App() {
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(requestJobs({ organizationRef: TEST_ORGANIZATION_REF }))
-  }, [dispatch])
   return (
     <ThemeProvider theme={theme}>
-      <Box justifyContent="center" display="flex" backgroundColor="lightGrey">
-        <Box>
+      <Box justifyContent="center" display="flex" backgroundColor="light.200">
+        <Box m="4">
           <Text variant="h2">Jobs app</Text>
           <BrowserRouter>
             <Switch>
-              <Route
-                path={JOBS_ROUTE}
-                exact
-                component={() => <div>jobs</div>}
-              />
+              <Route path={JOBS_ROUTE} exact component={Jobs} />
               <Route
                 path={JOB_PREVIEW_ROUTE}
                 exact
