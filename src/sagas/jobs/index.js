@@ -9,27 +9,30 @@ import {
 } from "actions/jobs"
 import { JobsApiCaller } from "requests/jobs"
 import { withCache } from "services/cache"
+import { normalizeArray } from "helpers/data"
 
 const requestJobsByOrganization = withCache(
   JobsApiCaller.getJobsByOrganizationReference,
   true
 )
 
-function* requestJobsWorker({ organizationRef = "" }) {
+function* requestJobsWorker({ organization = "" }) {
   try {
-    const {
-      data: { jobs }
-    } = yield call(requestJobsByOrganization, organizationRef)
-    yield put(requestJobsSuccess({ jobs, organization: organizationRef }))
+    const { data } = yield call(requestJobsByOrganization, organization)
+    const jobsData = {
+      ...normalizeArray(data.jobs),
+      organization
+    }
+    yield put(requestJobsSuccess(jobsData))
   } catch (error) {
     yield put(requestJobsError(error.message))
   }
 }
 
-function* requestJobsIfNeedWorker({ organizationRef = "" }) {
+function* requestJobsIfNeedWorker({ organization = "" }) {
   const lastRequestedOrganization = yield select(selectCurrentOrganization)
-  if (organizationRef !== lastRequestedOrganization) {
-    yield put(requestJobs({ organizationRef }))
+  if (organization !== lastRequestedOrganization) {
+    yield put(requestJobs({ organization }))
   }
 }
 

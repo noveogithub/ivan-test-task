@@ -1,4 +1,4 @@
 export const selectCurrentOrganization = ({ jobs }) =>
   jobs.data.organization || ""
 
-export const selectJobs = ({ jobs }) => jobs.data.jobs || []
+export const selectJobsCollection = ({ jobs }) => Object.values(jobs.data)
