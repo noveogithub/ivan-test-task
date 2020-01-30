@@ -1,15 +1,18 @@
 import React, { useEffect } from "react"
 import { BrowserRouter, Switch, Route } from "react-router-dom"
-import { JobsApiCaller } from "requests/jobs"
+import { useDispatch } from "react-redux"
+import { requestJobs } from "actions/jobs"
 import { JOB_PREVIEW_ROUTE, JOBS_ROUTE } from "constants/routes"
+import { TEST_ORGANIZATION_REF } from "constants/jobs"
 import { ThemeProvider } from "theming"
 import { Box, Text } from "welcome-ui"
 import { theme } from "./theme"
 
 function App() {
+  const dispatch = useDispatch()
   useEffect(() => {
-    JobsApiCaller.getJobsByOrganizationReference("Pg4eV6k").then(console.log)
-  }, [])
+    dispatch(requestJobs({ organizationRef: TEST_ORGANIZATION_REF }))
+  }, [dispatch])
   return (
     <ThemeProvider theme={theme}>
       <Box justifyContent="center" display="flex" backgroundColor="lightGrey">

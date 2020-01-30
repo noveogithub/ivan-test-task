@@ -5,7 +5,8 @@ import { dateOffset } from "helpers/date"
 const initialState = {
   searchString: "",
   contractType: "",
-  startDate: dateOffset(new Date(), -WEEK_OFFSET)
+  startDate: dateOffset(new Date(), -WEEK_OFFSET),
+  groupBy: ""
 }
 
 export const filtersReducer = createReducer(initialState, {})
