@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { JobsApiCaller } from "services/jobs"
+import { JobsApiCaller } from "requests/jobs"
 import logo from "./logo.svg"
 import "./App.css"
 

@@ -1,4 +1,4 @@
-import { request } from "services/index"
+import { request } from "requests/index"
 import { JOBS_API_URL } from "constants/api"
 
 /**
