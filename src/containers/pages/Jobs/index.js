@@ -7,13 +7,14 @@ import { Text } from "@welcome-ui/text"
 import {
   selectContractTypesOptionList,
   selectFilteredJobs,
-  selectJobsCollection
+  selectJobsStatus
 } from "selectors/jobs"
 import { Loader } from "components/Loader"
 import { JobsList } from "components/JobsList"
 import { JobsFilter } from "components/JobsFilter"
 import { resetFilters, changeFilter } from "actions/filters"
 import { selectCurrentFilters } from "selectors/filters"
+import { STATUS_LOADING } from "constants/status"
 
 export const Jobs = React.memo(() => {
   const dispatch = useDispatch()
@@ -21,18 +22,17 @@ export const Jobs = React.memo(() => {
     dispatch(resetFilters())
     dispatch(requestJobsIfNeed({ organization: TEST_ORGANIZATION_REF }))
   }, [dispatch])
-  const jobs = useSelector(selectJobsCollection)
   const filters = useSelector(selectCurrentFilters)
   const contractTypesList = useSelector(selectContractTypesOptionList)
   const filteredJobs = useSelector(selectFilteredJobs)
-  console.log(filteredJobs)
+  const jobsStatus = useSelector(selectJobsStatus)
   const changeFilterValue = useCallback(
     (filter, value) => dispatch(changeFilter({ filter, value })),
     [dispatch]
   )
 
   return (
-    <Box backgroundColor="light.200" p="20px 80px" mx={8}>
+    <Box backgroundColor="light.500" p="20px 80px" mt={40} borderRadius={5}>
       <Box display="flex" justifyContent="center">
         <Text variant="h3">Our offers</Text>
       </Box>
@@ -41,7 +41,11 @@ export const Jobs = React.memo(() => {
         contractTypesList={contractTypesList}
         changeFilter={changeFilterValue}
       />
-      {jobs.length ? <JobsList jobs={jobs} /> : <Loader />}
+      {jobsStatus !== STATUS_LOADING ? (
+        <JobsList jobs={filteredJobs} />
+      ) : (
+        <Loader />
+      )}
     </Box>
   )
 })
