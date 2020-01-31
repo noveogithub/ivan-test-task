@@ -15,12 +15,12 @@ function* requestJobWorker({ id }) {
     return
   }
   yield put(requestJobs({ organization: TEST_ORGANIZATION_REF }))
-  const { data = {} } = yield race({
+  const { data: { data } = {} } = yield race({
     data: take(REQUEST_JOBS_SUCCESS),
     cancel: take(REQUEST_JOBS_ERROR)
   })
-  if (data.id) {
-    yield put(requestJobSuccess(data))
+  if (data[id]) {
+    yield put(requestJobSuccess(data[id]))
     return
   }
   yield put(requestJobError(`there's no such job`))

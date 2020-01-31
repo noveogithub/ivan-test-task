@@ -12,9 +12,10 @@ const initialState = {
   status: STATUS_NOT_REQUESTED
 }
 
-export const jobsReducer = createReducer(initialState, {
+export const jobReducer = createReducer(initialState, {
   [REQUEST_JOB]: state => ({ ...state, status: STATUS_LOADING }),
   [REQUEST_JOB_SUCCESS]: (state, { data }) => ({
+    ...state,
     data,
     status: STATUS_SUCCESS
   })
