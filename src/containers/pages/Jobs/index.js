@@ -6,6 +6,7 @@ import { Box } from "@welcome-ui/box"
 import { Text } from "@welcome-ui/text"
 import {
   selectContractTypesOptionList,
+  selectFilteredJobs,
   selectJobsCollection
 } from "selectors/jobs"
 import { Loader } from "components/Loader"
@@ -23,6 +24,8 @@ export const Jobs = React.memo(() => {
   const jobs = useSelector(selectJobsCollection)
   const filters = useSelector(selectCurrentFilters)
   const contractTypesList = useSelector(selectContractTypesOptionList)
+  const filteredJobs = useSelector(selectFilteredJobs)
+  console.log(filteredJobs)
   const changeFilterValue = useCallback(
     (filter, value) => dispatch(changeFilter({ filter, value })),
     [dispatch]

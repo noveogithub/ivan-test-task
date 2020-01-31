@@ -14,3 +14,5 @@ export const GROUP_BY_OPTIONS = [
     value: "office"
   }
 ]
+
+export const ALL_OPTION = { label: "All", value: "" }
