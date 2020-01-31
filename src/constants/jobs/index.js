@@ -1,3 +1,5 @@
+import { ALL_LABEL } from "constants/filters"
+
 export const TEST_ORGANIZATION_REF = "Pg4eV6k"
 export const DEFAULT_JOBS_GROUP_BY = "department"
 export const GROUP_BY_OPTIONS = [
@@ -15,4 +17,4 @@ export const GROUP_BY_OPTIONS = [
   }
 ]
 
-export const ALL_OPTION = { label: "All", value: "" }
+export const ALL_OPTION = { label: ALL_LABEL, value: "" }
