@@ -1,4 +1,5 @@
 import React, { useCallback } from "react"
+import PropTypes from "prop-types"
 import { InputText } from "@welcome-ui/input-text"
 import { Select } from "@welcome-ui/select"
 import { DatePicker } from "@welcome-ui/date-picker"
@@ -6,7 +7,12 @@ import { Box } from "@welcome-ui/box"
 import { Field } from "@welcome-ui/field"
 import styled from "@xstyled/styled-components"
 import { GROUP_BY_OPTIONS } from "constants/jobs"
-import { changeFilter } from "actions/filters"
+import {
+  SEARCH_STRING,
+  GROUP_BY,
+  START_DATE,
+  CONTRACT_TYPE
+} from "constants/filters"
 
 const filterBoxWidth = { xs: "100%", xl: "auto" }
 
@@ -23,20 +29,21 @@ export const JobsFilter = React.memo(
   ({ contractTypesList, changeFilter, filters }) => {
     const { searchString, contractType, startDate, groupBy } = filters
     const changeSearch = useCallback(
-      ({ target }) => changeFilter("searchString", target.value || ""),
+      ({ target }) => changeFilter(SEARCH_STRING, target.value || ""),
       [changeFilter]
     )
     const changeContractType = useCallback(
-      value => changeFilter("contractType", value),
+      value => changeFilter(CONTRACT_TYPE, value),
       [changeFilter]
     )
     const changeStartDate = useCallback(
-      value => changeFilter("startDate", value),
+      value => changeFilter(START_DATE, value),
       [changeFilter]
     )
-    const changeGroupBy = useCallback(value => changeFilter("groupBy", value), [
+    const changeGroupBy = useCallback(value => changeFilter(GROUP_BY, value), [
       changeFilter
     ])
+
     return (
       <Box
         m="10px 0"
@@ -84,3 +91,24 @@ export const JobsFilter = React.memo(
     )
   }
 )
+
+JobsFilter.propTypes = {
+  contractTypesList: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string,
+      value: PropTypes.string
+    })
+  ),
+  changeFilter: PropTypes.func.isRequired,
+  filters: PropTypes.shape({
+    searchString: PropTypes.string,
+    contractType: PropTypes.string,
+    startDate: PropTypes.instanceOf(Date),
+    groupBy: PropTypes.string
+  })
+}
+
+JobsFilter.defaultProps = {
+  contractTypesList: [],
+  filters: {}
+}

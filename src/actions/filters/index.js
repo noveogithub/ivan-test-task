@@ -1,7 +1,7 @@
 const PREFIX = "filters"
 
 export const APPLY_FILTERS = `${PREFIX}/APPLY_FILTERS`
-export const changeSearchString = () => ({
+export const applyFilters = () => ({
   type: APPLY_FILTERS
 })
 
