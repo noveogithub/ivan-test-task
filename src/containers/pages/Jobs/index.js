@@ -15,6 +15,7 @@ import { JobsFilter } from "components/JobsFilter"
 import { resetFilters, changeFilter } from "actions/filters"
 import { selectCurrentFilters } from "selectors/filters"
 import { STATUS_LOADING } from "constants/status"
+import { SEARCH_STRING } from "constants/filters"
 
 export const Jobs = React.memo(() => {
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ export const Jobs = React.memo(() => {
         changeFilter={changeFilterValue}
       />
       {jobsStatus !== STATUS_LOADING ? (
-        <JobsList jobs={filteredJobs} />
+        <JobsList searchString={filters[SEARCH_STRING]} jobs={filteredJobs} />
       ) : (
         <Loader />
       )}

@@ -3,7 +3,7 @@ import PropTypes from "prop-types"
 import { JobCard } from "components/JobCard"
 import { Text } from "@welcome-ui/text"
 
-export const JobsList = React.memo(({ jobs }) => {
+export const JobsList = React.memo(({ jobs, searchString }) => {
   if (!jobs.length) {
     return <Text variant="h4">No results...</Text>
   }
@@ -16,6 +16,7 @@ export const JobsList = React.memo(({ jobs }) => {
           name={name}
           contractType={contractType}
           office={office}
+          searchString={searchString}
         />
       ))}
     </div>
@@ -34,5 +35,10 @@ JobsList.propTypes = {
       contractType: PropTypes.string,
       publishedAt: PropTypes.instanceOf(Date)
     })
-  ).isRequired
+  ).isRequired,
+  searchString: PropTypes.string
+}
+
+JobsList.defaultProps = {
+  searchString: ""
 }
