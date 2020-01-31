@@ -22,7 +22,7 @@ export const JobCard = ({ id, name }) => {
         <Text variant="body1" m="md">
           {name}
         </Text>
-        <Text variant="body3">contract type</Text>
+        <Text variant="body3" color="secondary.500">contract type</Text>
       </div>
       <CustomizedLink to={generatePath(JOB_PREVIEW_ROUTE, { id })}>
         <Button variant="quaternary">See more</Button>
