@@ -1,6 +1,12 @@
 import { createSelector } from "reselect"
 import { selectActiveFilters } from "selectors/filters"
-import { CONTRACT_TYPE, SEARCH_STRING, START_DATE } from "constants/filters"
+import {
+  ALL_LABEL,
+  CONTRACT_TYPE,
+  GROUP_BY,
+  SEARCH_STRING,
+  START_DATE
+} from 'constants/filters'
 import { ALL_OPTION } from "constants/jobs"
 import { jobFuzzyMatch } from "helpers/jobs"
 
@@ -45,5 +51,24 @@ export const selectFilteredJobs = createSelector(
       }
       return jobFuzzyMatch(job, searchStringFilter)
     })
+  }
+)
+
+export const selectGroupedFilteredJobs = createSelector(
+  [selectFilteredJobs, selectActiveFilters],
+  (jobs, filters) => {
+    const groupByFilter = filters[GROUP_BY]
+    if (!groupByFilter) {
+      return { [ALL_LABEL]: jobs }
+    }
+    return jobs.reduce((acc, job) => {
+      const filterValue = job[groupByFilter] || ""
+      if (!filterValue) {
+        return acc
+      }
+      acc[filterValue] = acc[filterValue] || []
+      acc[filterValue].push(job)
+      return acc
+    }, {})
   }
 )
