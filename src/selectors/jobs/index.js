@@ -7,6 +7,7 @@ import { jobFuzzyMatch } from "helpers/jobs"
 export const selectCurrentOrganization = ({ jobs }) =>
   jobs.data.organization || ""
 
+export const selectJobs = ({ jobs }) => jobs.data
 export const selectJobsCollection = ({ jobs }) => Object.values(jobs.data)
 export const selectJobsStatus = ({ jobs }) => jobs.status
 
