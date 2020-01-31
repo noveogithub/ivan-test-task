@@ -9,6 +9,7 @@ export const prepareJob = job => {
     name: preparedJob.name || "",
     profile: preparedJob.profile || "",
     office: preparedJob.office.name || "",
+    department: preparedJob.department.name || "",
     websitesUrls: preparedJob.websitesUrls || [],
     description: preparedJob.description || "",
     contractType: preparedJob.contractType.en || "",
