@@ -1,6 +1,5 @@
 import React from "react"
 import { render } from "@testing-library/react"
-import { EMPTY_SEARCH_STRING } from "constants/errors"
 import { Highlighter } from "./index"
 
 describe("Highlighter test", () => {
@@ -21,16 +20,11 @@ describe("Highlighter test", () => {
       expect.arrayContaining(["a", "a", "a"])
     )
   })
-  it("check wrong usage", () => {
-    const consoleError = console.error
-    console.error = jest.fn()
-    let exception
-    try {
-      render(<Highlighter search="">lalala</Highlighter>)
-    } catch (error) {
-      exception = error
-    }
-    expect(exception.message).toEqual(EMPTY_SEARCH_STRING)
-    console.error = consoleError
+  it("check empty search string", () => {
+    const { container } = render(
+      <Highlighter search="">Here is some javascript code</Highlighter>
+    )
+    const marked = container.querySelector("mark")
+    expect(marked).toBe(null)
   })
 })

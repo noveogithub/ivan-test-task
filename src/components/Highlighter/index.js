@@ -1,6 +1,5 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { EMPTY_SEARCH_STRING } from "constants/errors"
 
 /**
  * Simple Component to highlight text.
@@ -10,7 +9,7 @@ import { EMPTY_SEARCH_STRING } from "constants/errors"
  */
 export const Highlighter = React.memo(({ children, search }) => {
   if (!search) {
-    throw Error(EMPTY_SEARCH_STRING)
+    return children
   }
   const markedText = children.replace(
     new RegExp(search, "gi"),

@@ -6,7 +6,7 @@ import {
   GROUP_BY,
   SEARCH_STRING,
   START_DATE
-} from 'constants/filters'
+} from "constants/filters"
 import { ALL_OPTION } from "constants/jobs"
 import { jobFuzzyMatch } from "helpers/jobs"
 
@@ -49,7 +49,7 @@ export const selectFilteredJobs = createSelector(
       ) {
         return false
       }
-      return jobFuzzyMatch(job, searchStringFilter)
+      return !searchStringFilter || jobFuzzyMatch(job, searchStringFilter)
     })
   }
 )
