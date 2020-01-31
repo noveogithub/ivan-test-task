@@ -1,7 +1,17 @@
 {
   "compilerOptions": {
     "baseUrl": "./src",
-    "module": "esnext"
+    "module": "esnext",
+    "paths": {
+      "*": ["src/*"]
+    }
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*"],
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "moduleDirectory": ["node_modules", "src/"]
+      }
+    }
+  }
 }

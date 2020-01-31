@@ -4,8 +4,13 @@ import { JobCard } from "components/JobCard"
 import { Text } from "@welcome-ui/text"
 import { Tag } from "@welcome-ui/tag"
 import { ALL_LABEL } from "constants/filters"
+import { NO_RESULT_MESSAGE } from "constants/messages"
 
-const NoResults = () => <Text variant="h4">No results...</Text>
+const NoResults = () => (
+  <Text variant="h4" data-testid="noResults">
+    {NO_RESULT_MESSAGE}
+  </Text>
+)
 
 export const JobsList = React.memo(({ groupedJobs, searchString }) => {
   if (!Object.keys(groupedJobs).length) {
@@ -26,19 +31,28 @@ export const JobsList = React.memo(({ groupedJobs, searchString }) => {
   )
   const allJobs = groupedJobs[ALL_LABEL]
   if (allJobs) {
-    return allJobs.length ? <>{allJobs.map(renderJobs)}</> : <NoResults />
+    return allJobs.length ? (
+      <div data-testid="allJobs">{allJobs.map(renderJobs)}</div>
+    ) : (
+      <NoResults />
+    )
   }
   return (
-    <>
+    <div data-testid="groupedJobs">
       {Object.entries(groupedJobs).map(([group, jobs]) => (
         <div key={`jobsGroup-${group}`}>
-          <Tag variant="secondary" size="lg" m={5}>
+          <Tag
+            variant="secondary"
+            size="lg"
+            m={5}
+            data-testid={`groupTag-${group}`}
+          >
             {group}
           </Tag>
           {jobs.map(renderJobs)}
         </div>
       ))}
-    </>
+    </div>
   )
 })
 
