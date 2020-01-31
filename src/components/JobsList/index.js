@@ -1,7 +1,7 @@
 import React from "react"
 import { JobCard } from "components/JobCard"
 
-export const JobsList = ({ jobs }) => {
+export const JobsList = React.memo(({ jobs }) => {
   return (
     <div>
       {jobs.map(job => (
@@ -9,4 +9,4 @@ export const JobsList = ({ jobs }) => {
       ))}
     </div>
   )
-}
+})
