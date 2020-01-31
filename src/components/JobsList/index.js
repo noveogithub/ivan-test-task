@@ -5,9 +5,11 @@ import { Text } from "@welcome-ui/text"
 import { Tag } from "@welcome-ui/tag"
 import { ALL_LABEL } from "constants/filters"
 
+const NoResults = () => <Text variant="h4">No results...</Text>
+
 export const JobsList = React.memo(({ groupedJobs, searchString }) => {
   if (!Object.keys(groupedJobs).length) {
-    return <Text variant="h4">No results...</Text>
+    return <NoResults />
   }
   const renderJobs = useCallback(
     ({ id, name, contractType, office }) => (
@@ -22,8 +24,9 @@ export const JobsList = React.memo(({ groupedJobs, searchString }) => {
     ),
     [searchString]
   )
-  if (groupedJobs[ALL_LABEL]) {
-    return <>{groupedJobs[ALL_LABEL].map(renderJobs)}</>
+  const allJobs = groupedJobs[ALL_LABEL]
+  if (allJobs) {
+    return allJobs.length ? <>{allJobs.map(renderJobs)}</> : <NoResults />
   }
   return (
     <>
