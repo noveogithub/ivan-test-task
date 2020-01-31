@@ -1,5 +1,13 @@
 import { camelCase } from "lodash/string"
 
+/**
+ * helper for normalizing collection
+ * @param {array} data collection
+ * @returns {{ data, ids }}
+ * @example
+ * in [{ id: 'id1', ... }, { id: 'id2', ... }]
+ * out { data: { id1: { ... }, id2: { ... } }, ids: [id1, id2] }
+ */
 export const normalizeArray = data =>
   data.reduce(
     (acc, item) => {
