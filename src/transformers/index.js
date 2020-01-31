@@ -5,7 +5,7 @@ import { WEEK_OFFSET } from "constants/date"
 export const prepareJob = job => {
   const preparedJob = objectCamelizer(job)
   return {
-    id: preparedJob.id,
+    id: `${preparedJob.id}`,
     name: preparedJob.name || "",
     profile: preparedJob.profile || "",
     office: preparedJob.office.name || "",

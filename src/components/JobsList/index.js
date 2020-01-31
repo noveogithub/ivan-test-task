@@ -1,12 +1,34 @@
 import React from "react"
+import PropTypes from "prop-types"
 import { JobCard } from "components/JobCard"
 
 export const JobsList = React.memo(({ jobs }) => {
   return (
     <div>
-      {jobs.map(job => (
-        <JobCard key={`jobCard-${job.id}`} {...job} />
+      {jobs.map(({ id, name, contractType, office }) => (
+        <JobCard
+          id={id}
+          key={`jobCard-${id}`}
+          name={name}
+          contractType={contractType}
+          office={office}
+        />
       ))}
     </div>
   )
 })
+
+JobsList.propTypes = {
+  jobs: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      name: PropTypes.string,
+      profile: PropTypes.string,
+      office: PropTypes.string,
+      websitesUrls: PropTypes.array,
+      description: PropTypes.string,
+      contractType: PropTypes.string,
+      publishedAt: PropTypes.instanceOf(Date)
+    })
+  ).isRequired
+}
