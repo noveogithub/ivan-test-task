@@ -3,7 +3,9 @@ import { InputText } from "@welcome-ui/input-text"
 import { Select } from "@welcome-ui/select"
 import { DatePicker } from "@welcome-ui/date-picker"
 import { Box } from "@welcome-ui/box"
+import { Field } from "@welcome-ui/field"
 import styled from "@xstyled/styled-components"
+import { DEFAULT_JOBS_FROUP_BY, GROUP_BY_OPTIONS } from "constants/jobs"
 
 const filterBoxWidth = { xs: "100%", xl: "auto" }
 
@@ -16,7 +18,7 @@ const StyledSelect = styled(Select)`
   padding-right: 0;
 `
 
-export const JobsFilter = () => {
+export const JobsFilter = ({ contractTypesOptions }) => {
   return (
     <Box
       m="10px 0"
@@ -26,16 +28,30 @@ export const JobsFilter = () => {
       flexDirection={{ xs: "column", xl: "row" }}
     >
       <FilterBox width={filterBoxWidth}>
-        <InputText placeholder="your dream job?" />
+        <Field
+          component={InputText}
+          label="Search query"
+          placeholder="Your dream job?"
+        />
       </FilterBox>
       <FilterBox width={filterBoxWidth}>
-        <StyledSelect className="auto-width" options={[]} value="" />
+        <Field
+          component={StyledSelect}
+          label="Contract type"
+          options={contractTypesOptions}
+          value=""
+        />
       </FilterBox>
       <FilterBox width={filterBoxWidth}>
-        <DatePicker />
+        <Field component={DatePicker} label="Date" />
       </FilterBox>
       <FilterBox width={filterBoxWidth}>
-        <StyledSelect options={[]} value="" />
+        <Field
+          component={StyledSelect}
+          label="Group by"
+          options={GROUP_BY_OPTIONS}
+          value={DEFAULT_JOBS_FROUP_BY}
+        />
       </FilterBox>
     </Box>
   )
