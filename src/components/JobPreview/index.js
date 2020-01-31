@@ -31,14 +31,16 @@ export const JobPreview = ({
 )
 
 JobPreview.propTypes = {
-  name: PropTypes.string.isRequired,
-  publishedAt: PropTypes.instanceOf(Date).isRequired,
+  name: PropTypes.string,
+  publishedAt: PropTypes.instanceOf(Date),
   office: PropTypes.string,
   contractType: PropTypes.string,
   description: PropTypes.string
 }
 
 JobPreview.defaultProps = {
+  name: "",
+  publishedAt: new Date(),
   office: "",
   contractType: "",
   description: ""
