@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback } from "react"
+import PropTypes from "prop-types"
 import { useDispatch, useSelector } from "react-redux"
 import { requestJobsIfNeed } from "actions/jobs"
 import { TEST_ORGANIZATION_REF } from "constants/jobs"
@@ -6,15 +7,43 @@ import { Box } from "@welcome-ui/box"
 import { Text } from "@welcome-ui/text"
 import {
   selectContractTypesOptionList,
-  selectGroupedFilteredJobs,
+  selectGroupedPreparedJobs,
   selectJobsStatus
 } from "selectors/jobs"
 import { Loader } from "components/Loader"
 import { JobsList } from "components/JobsList"
 import { JobsFilter } from "components/JobsFilter"
 import { resetFilters, changeFilter } from "actions/filters"
-import { selectCurrentFilters, selectCurrentSearch } from "selectors/filters"
+import { selectCurrentFilters } from "selectors/filters"
 import { STATUS_LOADING } from "constants/status"
+import { NO_RESULT_MESSAGE } from "constants/messages/index"
+import { ALL_LABEL } from "constants/filters/index"
+import { Group } from "../../../components/Group/index"
+
+const NoResults = () => (
+  <Text variant="h4" data-testid="noResults">
+    {NO_RESULT_MESSAGE}
+  </Text>
+)
+
+const JobsContent = ({ groupedJobs }) => {
+  const isGrouped = !groupedJobs[ALL_LABEL]
+  const isEmpty = isGrouped
+    ? !Object.keys(groupedJobs).length
+    : !groupedJobs[ALL_LABEL].length
+  if (isEmpty) {
+    return <NoResults />
+  }
+  return isGrouped ? (
+    Object.entries(groupedJobs).map(([groupName, jobs]) => (
+      <Group key={`jobsGroup-${groupName}`} name={groupName}>
+        <JobsList jobs={jobs} />
+      </Group>
+    ))
+  ) : (
+    <JobsList jobs={groupedJobs[ALL_LABEL]} />
+  )
+}
 
 export const Jobs = React.memo(() => {
   const dispatch = useDispatch()
@@ -23,9 +52,8 @@ export const Jobs = React.memo(() => {
     dispatch(requestJobsIfNeed({ organization: TEST_ORGANIZATION_REF }))
   }, [dispatch])
   const filters = useSelector(selectCurrentFilters)
-  const searchString = useSelector(selectCurrentSearch)
   const contractTypesList = useSelector(selectContractTypesOptionList)
-  const filteredGroupedJobs = useSelector(selectGroupedFilteredJobs)
+  const groupedJobs = useSelector(selectGroupedPreparedJobs)
   const jobsStatus = useSelector(selectJobsStatus)
   const changeFilterValue = useCallback(
     (filter, value) => dispatch(changeFilter({ filter, value })),
@@ -43,13 +71,14 @@ export const Jobs = React.memo(() => {
         changeFilter={changeFilterValue}
       />
       {jobsStatus !== STATUS_LOADING ? (
-        <JobsList
-          searchString={searchString}
-          groupedJobs={filteredGroupedJobs}
-        />
+        <JobsContent groupedJobs={groupedJobs} />
       ) : (
         <Loader />
       )}
     </Box>
   )
 })
+
+JobsContent.propTypes = {
+  groupedJobs: PropTypes.object.isRequired
+}

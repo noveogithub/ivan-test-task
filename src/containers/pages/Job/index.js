@@ -25,9 +25,8 @@ export const Job = React.memo(() => {
         <Link to={JOBS_ROUTE}>
           <WelcomeHomeIcon size="xl" />
         </Link>
-        &nbsp;
         <Text variant="body2" display="inline">
-          GO HOME
+          GO&nbsp;HOME
         </Text>
       </Box>
       <Box display="flex" justifyContent="center">

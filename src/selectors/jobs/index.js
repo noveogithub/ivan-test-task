@@ -36,26 +36,28 @@ export const selectContractTypesOptionList = createSelector(
   }
 )
 
-export const selectFilteredJobs = createSelector(
+export const selectFilteredPreparedJobs = createSelector(
   [selectJobsCollection, selectActiveFilters],
   (jobs, filters) => {
     const contractTypeFilter = filters[CONTRACT_TYPE]
     const startDateFilter = filters[START_DATE]
-    const searchStringFilter = filters[SEARCH_STRING]
-    return jobs.filter(job => {
+    const searchString = filters[SEARCH_STRING]
+    return jobs.reduce((acc, job) => {
       if (
+        job.publishedAt < startDateFilter ||
         (contractTypeFilter && job.contractType !== contractTypeFilter) ||
-        job.publishedAt < startDateFilter
+        (searchString && !jobFuzzyMatch(job, searchString))
       ) {
-        return false
+        return acc
       }
-      return !searchStringFilter || jobFuzzyMatch(job, searchStringFilter)
-    })
+      acc.push(searchString ? { ...job, highlight: searchString } : job)
+      return acc
+    }, [])
   }
 )
 
-export const selectGroupedFilteredJobs = createSelector(
-  [selectFilteredJobs, selectActiveFilters],
+export const selectGroupedPreparedJobs = createSelector(
+  [selectFilteredPreparedJobs, selectActiveFilters],
   (jobs, filters) => {
     const groupByFilter = filters[GROUP_BY]
     if (!groupByFilter) {

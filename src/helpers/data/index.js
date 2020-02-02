@@ -18,7 +18,6 @@ export const normalizeArray = data =>
     { data: {}, ids: [] }
   )
 
-console.log("test pre commit")
 /**
  * converts object props to camelCase
  * @param { object } data

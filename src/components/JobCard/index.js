@@ -9,34 +9,46 @@ import { Card } from "@welcome-ui/card"
 import { JOB_PREVIEW_ROUTE } from "constants/routes"
 import { Highlighter } from "components/Highlighter"
 
-const CustomizedLink = styled(Link)`
+const StyledLink = styled(Link)`
   text-decoration: none;
 `
 
+const StyledCard = styled(Card)`
+  padding: 0 20px;
+  margin: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+/**
+ * Job card component. Displays short info about job.
+ * Contains link to job preview page.
+ * Takes highlight prop to highlight matches in text
+ * @param id
+ * @param name
+ * @param contractType
+ * @param office
+ * @param highlight
+ */
 export const JobCard = React.memo(
-  ({ id, name, contractType, office, searchString }) => {
+  ({ id, name, contractType, office, highlight }) => {
     return (
-      <Card
-        p="0 20px"
-        m={5}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-      >
-        <Box>
+      <StyledCard>
+        <Box data-testid="jobShortInfo">
           <Text variant="body2" m="10px 0 5px 0">
-            <Highlighter search={searchString}>{name}</Highlighter>
+            <Highlighter search={highlight}>{name}</Highlighter>
           </Text>
           <Text variant="subtitle1" as="span" color="secondary.200" mb={5}>
-            <Highlighter search={searchString}>{contractType}</Highlighter>
+            <Highlighter search={highlight}>{contractType}</Highlighter>
             &nbsp;-&nbsp;
-            <Highlighter search={searchString}>{office}</Highlighter>
+            <Highlighter search={highlight}>{office}</Highlighter>
           </Text>
         </Box>
-        <CustomizedLink to={generatePath(JOB_PREVIEW_ROUTE, { id })}>
+        <StyledLink to={generatePath(JOB_PREVIEW_ROUTE, { id })}>
           <Button variant="quaternary">See more</Button>
-        </CustomizedLink>
-      </Card>
+        </StyledLink>
+      </StyledCard>
     )
   }
 )
@@ -46,12 +58,12 @@ JobCard.propTypes = {
   name: PropTypes.string,
   contractType: PropTypes.string,
   office: PropTypes.string,
-  searchString: PropTypes.string
+  highlight: PropTypes.string
 }
 
 JobCard.defaultProps = {
   name: "",
   contractType: "",
   office: "",
-  searchString: ""
+  highlight: ""
 }
