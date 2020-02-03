@@ -30,12 +30,12 @@ const mockJobs = [
 ]
 
 describe("Jobs list test", () => {
-  it("test case: empty collection", () => {
+  it("shouldn't render empty collection", () => {
     const { container } = renderComponent({ jobs: [] })
     const jobsContainer = queryByTestId(container, "jobsList")
     expect(jobsContainer).toBe(null)
   })
-  it("test case: not empty collection", () => {
+  it("should render not empty collection correctly", () => {
     const { container } = renderComponent({ jobs: mockJobs })
     const jobsContainer = getByTestId(container, "jobsList")
     expect(jobsContainer.childNodes.length).toBe(3)

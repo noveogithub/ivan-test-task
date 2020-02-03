@@ -1,4 +1,4 @@
-import { objectCamelizer } from "helpers/data"
+import { camelizeKeys } from "helpers/data"
 import { dateOffset } from "helpers/date"
 import { WEEK_OFFSET } from "constants/date"
 
@@ -8,7 +8,7 @@ import { WEEK_OFFSET } from "constants/date"
  * @returns { Object }
  */
 export const prepareJob = job => {
-  const preparedJob = objectCamelizer(job)
+  const preparedJob = camelizeKeys(job)
   return {
     id: `${preparedJob.id}`,
     name: preparedJob.name || "",

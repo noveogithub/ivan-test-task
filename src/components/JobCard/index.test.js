@@ -34,7 +34,7 @@ const mockJob = {
 
 describe("Job Card test", () => {
   const { name, contractType, office, id } = mockJob;
-  it("test short job info", () => {
+  it("should render with given job short info", () => {
     const { container } = renderComponent({ job: mockJob })
     const jobShortInfo = getByTestId(container, 'jobShortInfo')
     const infoNodes = jobShortInfo.childNodes
@@ -42,7 +42,7 @@ describe("Job Card test", () => {
     const contractAndOfficeRegexp = new RegExp(`${contractType}.*${office}`)
     expect(infoNodes[1].textContent).toMatch(contractAndOfficeRegexp)
   })
-  it("job link test", () => {
+  it("should contain correct link", () => {
     const { container } = renderComponent({ job: mockJob })
     const expectedUrl = generatePath(JOB_PREVIEW_ROUTE, { id })
     expect(container.querySelector('a').href).toMatch(expectedUrl)

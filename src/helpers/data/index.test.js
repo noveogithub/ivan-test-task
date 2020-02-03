@@ -1,4 +1,4 @@
-import { objectCamelizer, normalizeArray } from "./index"
+import { camelizeKeys, normalizeArray } from "./index"
 
 const anyCaseObject = {
   snake_case: 1,
@@ -16,15 +16,15 @@ const camelCaseObject = {
   pointSplitted: 1
 }
 
-describe("object camelizer test", () => {
-  it("object with different cases", () => {
-    expect(objectCamelizer(anyCaseObject)).toEqual(camelCaseObject)
+describe("keys camelizer test", () => {
+  it("should camelize keys in different cases", () => {
+    expect(camelizeKeys(anyCaseObject)).toEqual(camelCaseObject)
   })
-  it("camelCased object camelize", () => {
-    expect(objectCamelizer(camelCaseObject)).toEqual(camelCaseObject)
+  it("should not changed camelCase keys", () => {
+    expect(camelizeKeys(camelCaseObject)).toEqual(camelCaseObject)
   })
-  it("empty object", () => {
-    expect(objectCamelizer({})).toEqual({})
+  it("should return empty object if empty object is given", () => {
+    expect(camelizeKeys({})).toEqual({})
   })
 })
 
@@ -34,7 +34,7 @@ describe("collection normalize test", () => {
     { id: "id2", name: "Eva" },
     { id: "id3", name: "Bob" }
   ]
-  it("correct collection", () => {
+  it("should normalize not empty collection", () => {
     const [first, second, third] = arrayToNormalize
     const expectedObject = {
       data: {
@@ -46,7 +46,7 @@ describe("collection normalize test", () => {
     }
     expect(normalizeArray(arrayToNormalize)).toEqual(expectedObject)
   })
-  it("empty collection", () => {
+  it("should return correct result for empty collection", () => {
     expect(normalizeArray([])).toEqual({ data: {}, ids: [] })
   })
 })

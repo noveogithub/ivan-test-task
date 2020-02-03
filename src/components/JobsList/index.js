@@ -16,7 +16,7 @@ export const JobsList = React.memo(({ jobs }) => {
       {jobs.map(({ id, name, contractType, office, highlight }) => (
         <JobCard
           id={id}
-          key={`jobCard-${id}`}
+          key={id}
           name={name}
           contractType={contractType}
           office={office}

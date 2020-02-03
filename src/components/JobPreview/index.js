@@ -28,7 +28,7 @@ export const JobPreview = ({
       </Text>
       <Text color="secondary.500">
         {publishedAt ? publishedAt.toDateString() : ""}&nbsp;
-        {office || ""}&nbsp;
+        {office}&nbsp;
         {contractType ? `(${contractType})` : ""}
       </Text>
       <Text

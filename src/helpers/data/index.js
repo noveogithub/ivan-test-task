@@ -23,7 +23,7 @@ export const normalizeArray = data =>
  * @param { object } data
  * @returns { object }
  */
-export const objectCamelizer = data =>
+export const camelizeKeys = data =>
   Object.entries(data).reduce((acc, [key, value]) => {
     acc[camelCase(key)] = value
     return acc

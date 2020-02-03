@@ -40,7 +40,7 @@ const JobsContent = ({ groupedJobs }) => {
   }
   return isGrouped ? (
     Object.entries(groupedJobs).map(([groupName, jobs]) => (
-      <Group key={`jobsGroup-${groupName}`} name={groupName}>
+      <Group key={groupName} name={groupName}>
         <JobsList jobs={jobs} />
       </Group>
     ))
