@@ -3,6 +3,16 @@ import { Text } from "@welcome-ui/text"
 import React from "react"
 import PropTypes from "prop-types"
 
+/**
+ * Job preview component
+ * Represents Job info card
+ * @param name
+ * @param publishedAt
+ * @param office
+ * @param contractType
+ * @param description
+ * @constructor
+ */
 export const JobPreview = ({
   name,
   publishedAt,

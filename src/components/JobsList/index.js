@@ -2,6 +2,11 @@ import React from "react"
 import PropTypes from "prop-types"
 import { JobCard } from "components/JobCard"
 
+/**
+ * Jobs List component
+ * Renders jobs list if it's not empty
+ * @param { Array } jobs
+ */
 export const JobsList = React.memo(({ jobs }) => {
   if (!jobs.length) {
     return null

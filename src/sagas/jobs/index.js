@@ -17,7 +17,7 @@ const requestJobsByOrganization = withCache(
   true
 )
 
-function* requestJobsWorker({ organization = "" }) {
+function* requestJobsWorker({ organization }) {
   try {
     const { data } = yield call(requestJobsByOrganization, organization)
     const preparedJobs = prepareJobs(data.jobs)
@@ -31,7 +31,11 @@ function* requestJobsWorker({ organization = "" }) {
   }
 }
 
-function* requestJobsIfNeedWorker({ organization = "" }) {
+/**
+ * checks organization in store. If it's different or empty, requests jobs
+ * @param organization
+ */
+function* requestJobsIfNeedWorker({ organization }) {
   const lastRequestedOrganization = yield select(selectCurrentOrganization)
   if (organization !== lastRequestedOrganization) {
     yield put(requestJobs({ organization }))

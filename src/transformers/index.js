@@ -2,6 +2,11 @@ import { objectCamelizer } from "helpers/data"
 import { dateOffset } from "helpers/date"
 import { WEEK_OFFSET } from "constants/date"
 
+/**
+ * prepares job entuty for handy usage
+ * @param job
+ * @returns { Object }
+ */
 export const prepareJob = job => {
   const preparedJob = objectCamelizer(job)
   return {

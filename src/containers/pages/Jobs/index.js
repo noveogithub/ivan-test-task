@@ -26,6 +26,10 @@ const NoResults = () => (
   </Text>
 )
 
+/**
+ * Component for local usage. Renders jobs content (list or group of lists)
+ * @param groupedJobs
+ */
 const JobsContent = ({ groupedJobs }) => {
   const isGrouped = !groupedJobs[ALL_LABEL]
   const isEmpty = isGrouped
@@ -45,6 +49,11 @@ const JobsContent = ({ groupedJobs }) => {
   )
 }
 
+/**
+ * Jobs page container.
+ * Renders filters and Jobs list
+ * If jobs are grouped, renders group of jobs lists
+ */
 export const Jobs = React.memo(() => {
   const dispatch = useDispatch()
   useEffect(() => {

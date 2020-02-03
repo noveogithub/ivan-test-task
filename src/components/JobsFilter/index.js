@@ -14,7 +14,7 @@ import {
   CONTRACT_TYPE
 } from "constants/filters"
 
-const filterBoxWidth = { xs: "100%", xl: "auto" }
+const filterBoxWidth = { xs: "100%", lg: "auto" }
 
 const FilterBox = styled(Box)`
   flex: 1 1;
@@ -25,6 +25,12 @@ const StyledSelect = styled(Select)`
   padding-right: 0;
 `
 
+/**
+ * JobsFilter component. Contains search input and filters
+ * @param { Array } contractTypesList - array of contract types options
+ * @param { function } changeFilter - callback to change exact filter
+ * @param { Object } filters - current filters
+ */
 export const JobsFilter = React.memo(
   ({ contractTypesList, changeFilter, filters }) => {
     const { searchString, contractType, startDate, groupBy } = filters
@@ -50,7 +56,7 @@ export const JobsFilter = React.memo(
         display="flex"
         justifyContent="center"
         alignItems="center"
-        flexDirection={{ xs: "column", xl: "row" }}
+        flexDirection={{ xs: "column", lg: "row" }}
       >
         <FilterBox width={filterBoxWidth}>
           <Field

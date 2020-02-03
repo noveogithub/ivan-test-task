@@ -11,6 +11,9 @@ import { selectJob, selectJobStatus } from "selectors/job"
 import { STATUS_LOADING } from "constants/status"
 import { JOBS_ROUTE } from "constants/routes"
 
+/**
+ * Single job page container
+ */
 export const Job = React.memo(() => {
   const dispatch = useDispatch()
   const { id } = useParams()

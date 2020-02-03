@@ -1,7 +1,7 @@
 const PREFIX = "jobs"
 
 export const REQUEST_JOBS = `${PREFIX}/REQUEST_JOBS`
-export const requestJobs = ({ organization }) => ({
+export const requestJobs = ({ organization = "" }) => ({
   type: REQUEST_JOBS,
   organization
 })
@@ -21,7 +21,7 @@ export const requestJobsError = error => ({
 })
 
 export const REQUEST_JOBS_IF_NEED = `${PREFIX}/REQUEST_JOBS_IF_NEED`
-export const requestJobsIfNeed = ({ organization }) => ({
+export const requestJobsIfNeed = ({ organization = "" }) => ({
   type: REQUEST_JOBS_IF_NEED,
   organization
 })

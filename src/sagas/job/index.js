@@ -8,6 +8,10 @@ import {
 } from "actions/jobs"
 import { TEST_ORGANIZATION_REF } from "constants/jobs"
 
+/**
+ * request job worker. If there's no jobs in store, triggers get jobs action and waits for result
+ * @param id
+ */
 function* requestJobWorker({ id }) {
   const jobs = yield select(selectJobs)
   if (jobs[id]) {

@@ -14,9 +14,13 @@ export const selectCurrentOrganization = ({ jobs }) =>
   jobs.data.organization || ""
 
 export const selectJobs = ({ jobs }) => jobs.data
-export const selectJobsCollection = ({ jobs }) => Object.values(jobs.data)
 export const selectJobsStatus = ({ jobs }) => jobs.status
+export const selectJobsCollection = ({ jobs }) => Object.values(jobs.data)
 
+/**
+ * selects unique contract types (prepared for usage as option list) from jobs collection
+ * Set is used to get unique values
+ */
 export const selectContractTypesOptionList = createSelector(
   [selectJobsCollection],
   jobs => {
@@ -36,6 +40,10 @@ export const selectContractTypesOptionList = createSelector(
   }
 )
 
+/**
+ * selects filtered by active filters jobs
+ * if there's search string, added highlight prop to job (for mathes highlighting)
+ */
 export const selectFilteredPreparedJobs = createSelector(
   [selectJobsCollection, selectActiveFilters],
   (jobs, filters) => {
@@ -56,6 +64,11 @@ export const selectFilteredPreparedJobs = createSelector(
   }
 )
 
+/**
+ * Selects prepared filtered jobs grouped by `groupBy` filter value
+ * @return {{ [groupName1]: [...jobs], [groupName2]: [...jobs], ... }}
+ * @note if groupBy filter is not set, returns {[ALL_LABEL]: allJobs}
+ */
 export const selectGroupedPreparedJobs = createSelector(
   [selectFilteredPreparedJobs, selectActiveFilters],
   (jobs, filters) => {

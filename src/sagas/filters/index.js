@@ -2,6 +2,11 @@ import { takeLatest, put, all, debounce } from "redux-saga/effects"
 import { CHANGE_FILTER, applyFilters } from "actions/filters"
 import { DEFAULT_DEBOUNCE, SEARCH_STRING } from "constants/filters"
 
+/**
+ * saga take patterns to decide whether action is fired for search or common filter
+ * search filter applies through debounce
+ */
+
 const isSeacrhFilter = ({ type, filter }) =>
   type === CHANGE_FILTER && filter === SEARCH_STRING
 
