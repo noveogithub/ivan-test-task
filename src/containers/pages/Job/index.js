@@ -23,7 +23,7 @@ export const Job = React.memo(() => {
   const job = useSelector(selectJob)
   const status = useSelector(selectJobStatus)
   return (
-    <Box display="flex">
+    <Box display="flex" flexDirection={{ xs: "column", md: "row" }}>
       <Box m={20}>
         <Link to={JOBS_ROUTE}>
           <WelcomeHomeIcon size="xl" />
