@@ -1,8 +1,8 @@
 import React from "react"
 import { generatePath } from "react-router-dom"
 import { Box } from "@welcome-ui/box"
-import PropTypes from "prop-types"
 import { Button } from "@welcome-ui/button"
+import PropTypes from "prop-types"
 import { JOB_PREVIEW_ROUTE } from "constants/routes"
 import { Highlighter } from "components/Highlighter"
 import { StyledCard, StyledLink, StyledTitle, StyledInfoText } from "./styles"
@@ -32,7 +32,7 @@ export const JobCard = React.memo(
           </StyledInfoText>
         </Box>
         <StyledLink to={generatePath(JOB_PREVIEW_ROUTE, { id })}>
-          <Button variant="quaternary">See more</Button>
+          <Button variant="secondary" border="none">See more</Button>
         </StyledLink>
       </StyledCard>
     )
