@@ -13,7 +13,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Box justifyContent="center" display="flex" backgroundColor="light.700">
-        <Box width={{ sm: 1, md: 0.5 }} minHeight="100vh">
+        <Box width={{ sm: 1, md: 0.8, xl: 0.6 }} minHeight="100vh">
           <BrowserRouter>
             <Switch>
               <Route path={JOBS_ROUTE} exact component={Jobs} />
